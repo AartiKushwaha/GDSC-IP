@@ -1,0 +1,75 @@
+Q1) https://www.interviewbit.com/problems/amortized1/
+Solution -->
+
+What is the time complexity of the following code :
+
+int j = 0;
+for(int i = 0; i < n; ++i) {
+    while(j < n && arr[i] < arr[j]) {
+        j++;
+    }
+}
+
+Ans) O(n)
+
+Q2) https://www.interviewbit.com/problems/add-one-to-number/
+
+vector<int> Solution::plusOne(vector<int> &A) {
+    reverse(A.begin(),A.end());
+    vector<int> ans;
+    int n=A.size();
+    int carry = 1;
+    for(int i=0;i<n;i++){
+        int sum = A[i]+carry;
+        ans.push_back(sum%10);
+        carry = sum/10;
+    }
+    while(carry==1){
+        ans.push_back(carry%10);
+        carry/=10;
+    }
+    // int m = ans.size();
+    while(ans[ans.size()-1]==0 and ans.size()>1) ans.pop_back();
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
+
+Q3) https://www.interviewbit.com/problems/hotel-bookings-possible/
+
+bool Solution::hotel(vector<int> &arrive, vector<int> &depart, int K) {
+    if(K == 0)
+        return false;
+    int n = arrive.size();
+    vector<pair<int, int> > vec;
+    for(int i = 0; i < n; ++i) {
+        vec.push_back(make_pair(arrive[i], 1));
+        vec.push_back(make_pair(depart[i], 0));
+    }
+    sort(vec.begin(), vec.end());
+    int busy = 0;
+    int mx = 0;
+    for (int i = 0; i < vec.size(); i++) {
+        if (vec[i].second == 1) {
+            busy++;
+            mx = max(mx, busy);
+        } else {
+            busy--;
+        }
+    }
+
+    if (K >= mx) return true;
+    return false;
+}
+
+Q4) https://www.interviewbit.com/problems/nestedcmpl3/
+
+What is time complexity of following code :
+
+int count = 0;
+for (int i = N; i > 0; i /= 2) {
+    for (int j = 0; j < i; j++) {
+        count += 1;
+    }
+}
+
+Ans) O(n)
