@@ -1,0 +1,162 @@
+Q1) https://leetcode.com/problems/implement-stack-using-queues/
+
+class MyStack {
+    queue<int> q1, q2;
+    int curr_size;
+public:
+    /** Initialize your data structure here. */
+    MyStack() {
+        curr_size = 0;
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        curr_size++;
+        q2.push(x);
+        while (!q1.empty()) {
+            q2.push(q1.front());
+            q1.pop();
+        }
+        queue<int> q = q1;
+        q1 = q2;
+        q2 = q;
+    }
+    
+    int pop() {
+        if (q1.empty())
+            return -1;
+        int poped = q1.front();
+        q1.pop();
+        curr_size--;
+        return poped;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        if (q1.empty())
+            return -1;
+        return q1.front();
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return (q1.empty());
+    }
+};
+
+
+
+Q2) https://leetcode.com/problems/implement-queue-using-stacks/
+
+class MyQueue {
+    stack<int> st1,st2;
+    int size;
+public:
+    MyQueue() {
+        size = 0;
+    }
+    
+    void push(int x) {
+        st1.push(x);
+        size++;
+    }
+    
+    int pop() {
+        if(st1.empty() and st2.empty()) return -1;
+        if(st2.empty()){
+            while(!st1.empty()){
+                st2.push(st1.top());
+                st1.pop();
+            }
+        }
+        size--;
+        int poped =  st2.top();
+        st2.pop();
+        return poped;
+    }
+    
+    int peek() {
+        if(st1.empty() and st2.empty()) return -1;
+        if(!st2.empty()) return st2.top();
+        else{
+            while(!st1.empty()){
+                st2.push(st1.top());
+                st1.pop();
+            }
+            return st2.top();
+        }
+    }
+    
+    bool empty() {
+        if(st1.empty() and st2.empty()) return true;
+        else return false;
+    }
+};
+
+Q3) https://leetcode.com/problems/valid-parentheses/
+
+bool isValid(string s) {
+    stack<char> st;
+    for(int i=0;i<s.size();i++){
+        char ch = s[i];
+        if(ch=='(' or ch=='{' or ch=='[') st.push(ch);
+        else{
+            char match;
+            switch(ch){
+                case ')':
+                    match = '(';
+                    break;
+                case '}':
+                    match = '{';
+                    break;
+                case ']':
+                    match = '[';
+                    break;
+            }
+            if(!st.empty()){
+                if(match!=st.top()) return false;
+                else st.pop();
+            }
+            else return false;
+        }
+    }
+    return st.empty();
+}
+
+
+Q4) https://leetcode.com/problems/next-greater-element-i/
+
+vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+    vector<int> res(nums1.size(), -1); //to be returned, initialize it with -1.
+    stack<int> st;
+    unordered_map<int, int> umap;
+
+    for(int i=0; i<nums2.size(); i++)
+    {
+        int element = nums2[i];
+
+        while(!st.empty() && element > st.top())
+        {
+            //NGE of st.top() is element
+
+            umap[st.top()] = element;
+            st.pop();
+        }
+
+        st.push(element);
+    }
+
+    for(int i=0; i<nums1.size(); i++)
+    {
+        int ele = nums1[i];
+
+        if(umap.find(ele) != umap.end())
+        {
+            int nge = umap[ele];
+            res[i] = nge; //push NGE of desired element
+        }
+
+    }
+
+    return res;
+}
