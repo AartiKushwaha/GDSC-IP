@@ -27,3 +27,56 @@ public:
         return st.top().second;
     }
 };
+
+Q2) https://practice.geeksforgeeks.org/problems/sort-a-stack/1
+
+void insert(int n, stack<int> &st){
+    if(st.size()==0 or st.top() <= n){
+        st.push(n);
+        return;
+    }
+    int temp = st.top();
+    st.pop();
+    insert(n,st);
+    st.push(temp);
+}
+
+void solve(stack<int> &st){
+    if(st.size()==1) return;
+    int a = st.top();
+    st.pop();
+    solve(st);
+    insert(a,st);
+}
+void SortedStack :: sort()
+{
+   //Your code here
+   solve(s);
+}
+
+
+Q3) https://leetcode.com/problems/basic-calculator/
+
+Q4) https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
+
+string removeDuplicates(string s) {
+    if(s.size()==1) return s;
+    string ans="";
+    stack<char> st;
+    for(int i=0;i<s.size();i++){
+        if(st.empty()) st.push(s[i]);
+        else{
+            if(s[i]==st.top()){
+                st.pop();
+            }else{
+                st.push(s[i]);
+            }
+        }
+    }
+    while(!st.empty()){
+        ans+=st.top();
+        st.pop();
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
