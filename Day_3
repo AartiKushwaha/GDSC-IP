@@ -1,6 +1,4 @@
-Q1) 
-
-//Approach one
+Q1) https://leetcode.com/problems/min-stack/
 
 class MinStack {
     stack<pair<int,int>> st;
