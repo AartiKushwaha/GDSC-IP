@@ -1,0 +1,34 @@
+Q1) https://leetcode.com/problems/asteroid-collision/
+
+vector<int> asteroidCollision(vector<int>& ast) {
+    int n = ast.size();
+    stack<int> s;
+    for(int i = 0; i < n; i++) {
+        if(ast[i] > 0 || s.empty()) {
+            s.push(ast[i]);
+        }
+        else {
+            while(!s.empty() and s.top() > 0 and s.top() < abs(ast[i])) {
+                s.pop();
+            }
+            if(!s.empty() and s.top() == abs(ast[i])) {
+                s.pop();
+            }
+            else {
+                if(s.empty() || s.top() < 0) {
+                    s.push(ast[i]);
+                }
+            }
+        }
+    }
+    vector<int> ans;
+    while(!s.empty()){
+        ans.push_back(s.top());
+        s.pop();
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
+
+Q2) https://practice.geeksforgeeks.org/problems/circular-tour/1
+
