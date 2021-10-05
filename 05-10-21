@@ -18,7 +18,7 @@ ListNode *getIntersectionNode(ListNode *ha, ListNode *hb) {
                     d2 = ha;
                 }
             }
-            
+
         }
         return d1;
     }
