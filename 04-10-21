@@ -62,5 +62,45 @@ ListNode *detectCycle(ListNode *head) {
 
         return head;
     }
+    
+https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+    
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *dummy = new ListNode(1);
+        dummy->next = head;
+        ListNode *fast = dummy;
+        ListNode *slow = dummy;
+        int cnt = 1;
+        while(cnt<=n){
+            fast = fast->next;
+            cnt++;
+        }
+        while(fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next;
+        }
+        slow->next = slow->next->next;
+        return dummy->next;
+    }
   
+  https://leetcode.com/problems/rotate-list/
   
+  ListNode* rotateRight(ListNode* head, int k) {
+        
+        if(head==NULL || head->next==NULL || k==0) return head;
+        ListNode* temp = head;
+        int len = 1;
+        while(temp->next){
+            temp = temp->next;
+            len++;
+        }
+        temp->next = head;
+        k%=len;
+        k=len-k;
+        while(k--){
+            temp = temp->next;
+        }
+        head = temp->next;
+        temp->next = NULL;
+        return head;
+    }
