@@ -20,3 +20,49 @@ int longestSubarray(vector<int>& nums, int limit) {
     
     
 Q2) https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/
+
+class Solution {
+public:
+    // Increment Frequency according to character
+    void HelperIncrement(char curr, int &nA, int &nB, int &nC) {
+        if(curr == 'a') nA++;
+        if(curr == 'b') nB++;
+        if(curr == 'c') nC++;
+    }
+    
+    // Decrement Frequency according to character 
+    void HelperDecrement(char curr, int &nA, int &nB, int &nC) {
+        if(curr == 'a') nA--;
+        if(curr == 'b') nB--;
+        if(curr == 'c') nC--;  
+    }
+    
+    int numberOfSubstrings(string s) {
+        
+        // Initialize Window to currently hold the first character and update its 
+        // corresponding frequency
+       int startptr = 0, endptr = 0;
+       int nA = 0, nB = 0, nC = 0;
+       HelperIncrement(s[0],nA,nB,nC);
+       int total_currsum = 0;
+        
+       while(startptr <= endptr) {
+           if(nA && nB && nC) {
+               // If Current window holds satisfies the necessary conditions i.e. nA,Nb,nC >= 1
+               // We add the total no.of strings having this window as its prefix 
+               // Further we increment startptr(decrease window) and decrement frequency accordingly
+               total_currsum += s.size() - endptr;
+               HelperDecrement(s[startptr++],nA,nB,nC);
+           }
+           else
+           {
+               // This means that the current window does not contain at least 1 a,b & c
+               // Thus we increase the size of sliding window rightwards
+             endptr++;
+             if(endptr == s.size()) break;
+             HelperIncrement(s[endptr],nA,nB,nC);
+           } 
+       } 
+        return total_currsum;
+    }
+};
