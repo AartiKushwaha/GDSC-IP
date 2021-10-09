@@ -19,3 +19,5 @@ public:
         return res <= N ? res : -1;
     }
 };
+
+Q2) https://leetcode.com/problems/minimum-size-subarray-sum/
