@@ -53,6 +53,19 @@ public:
 
 Q3) https://leetcode.com/problems/symmetric-tree
 
-
+class Solution {
+public:
+    
+    bool rec(TreeNode* left, TreeNode* right){
+        if(left==NULL || right==NULL)
+        return left==right;
+        if(left->val!=right->val)
+            return false;
+        return rec(left->left, right->right) && rec(left->right, right->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        return root==NULL || rec(root->left, root->right);
+    }
+};
 
 
