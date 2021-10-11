@@ -42,3 +42,8 @@ class Solution
         return ans;
     }
 };
+
+
+
+
+Q2) https://leetcode.com/problems/capacity-to-ship-packages-within-d-days
