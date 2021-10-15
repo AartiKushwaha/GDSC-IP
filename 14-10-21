@@ -1,0 +1,27 @@
+Q1) https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal
+
+class Solution {
+public:
+    
+    TreeNode* tree(vector<int>& preorder, int psi, int pei, vector<int>& inorder, int isi, int iei){
+        if(isi>iei) return NULL;
+        TreeNode *node = new TreeNode(preorder[psi]);
+        int idx = isi;
+        while(inorder[idx]!=preorder[psi]) idx++;
+        int cnt = idx - isi;
+        
+        
+        
+        node->left = tree(preorder,psi+1,psi+cnt,inorder, isi,idx-1);
+        node->right = tree(preorder,psi+1+cnt,pei,inorder, idx+1,iei);
+        
+        return node;
+    }
+    
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int n = preorder.size();
+        return tree(preorder,0,n-1,inorder,0,n-1);
+    }
+};
+
+Q2) https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal
