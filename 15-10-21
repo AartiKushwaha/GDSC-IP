@@ -14,4 +14,27 @@ public:
     }
 };
 
-Q2) 
+Q2) https://leetcode.com/problems/kth-smallest-element-in-a-bst/submissions/
+
+class Solution {
+public:
+    
+    int kthSmallest(TreeNode* root, int k) {
+        stack<TreeNode *> st;
+        TreeNode *node = root;
+        while(node || !st.empty())
+        {
+            while(node)
+            {
+                st.push(node);
+                node = node->left;
+            }
+            node = st.top();
+            if(--k == 0)
+                return node->val;
+            st.pop();
+            node = node->right;
+        }
+        return 0;
+    }
+};
