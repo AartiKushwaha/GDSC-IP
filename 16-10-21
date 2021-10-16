@@ -22,3 +22,28 @@ public:
 };
 
 Q2) https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+
+class Solution {
+public:
+    
+    void inOrder(TreeNode* root, vector<int> &in){
+        if(root==NULL) return;
+        inOrder(root->left, in);
+        in.push_back(root->val);
+        inOrder(root->right, in);
+    }
+    
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> in;
+        if(root==NULL) return false;
+        inOrder(root, in);
+        if(in.size()<2) return false;
+        int l = 0, r = in.size() - 1;
+        while(l<r){
+            if(in[l]+in[r] == k) return true;
+            else if(in[l]+in[r] < k) l++;
+            else r--;
+        }
+        return false;
+    }
+};
