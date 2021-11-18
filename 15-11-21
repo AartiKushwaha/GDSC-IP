@@ -26,3 +26,36 @@ int maxSumBS(int arr[] , int n )
     // return max sum of bi-tonic sub-sequence
     return max_sum;
 }
+
+
+Q2)
+
+vector<string> codes = {".",".;", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    
+    vector<string> finalAns;
+    
+    void printKPC(string ques, string asf){
+
+//base case - reached size zero - now is the time to print answer so far
+
+    if(ques.size() == 0){
+        finalAns.push_back(asf);
+        return;
+    }
+	
+	//taking out the first character and sending the one character to the next level everytime
+	
+    string first = codes[ques[0] - '0'];
+    for(auto c : first){
+        printKPC(ques.substr(1), asf + c);
+    }
+}
+
+    vector<string> letterCombinations(string digits) {
+        if(digits.size() == 0){
+            return {};
+        }
+        printKPC(digits, "");
+        return finalAns;
+        
+    }
